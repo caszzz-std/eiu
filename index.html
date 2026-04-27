@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biết Gì Mà Nhìn Lo Xem Đi</title>
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(to bottom, #ff9eb5, #ff4d88);
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: rgb(233, 93, 210);
+    cursor: pointer;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0%,100%{opacity:1}
+    50%{opacity:0.3}
+}
+
+.envelope {
+    width: 200px;
+    height: 130px;
+    background: #ff6fa5;
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+.letter {
+    width: 350px;
+    background: #ff5cdc;
+    border-radius: 25px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 0.5s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.heart {
+    position: relative;
+    width: 200px;
+    height: 180px;
+    margin: auto;
+}
+
+.heart img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    position: absolute;
+    border-radius: 12px;
+}
+
+.img1 { left: 25px; top: 0; transform: rotate(-45deg); }
+.img2 { right: 25px; top: 0; transform: rotate(45deg); }
+
+.text {
+    margin-top: 140px;
+    font-size: 20px;
+    color: #d81b60;
+    font-weight: bold;
+}
+
+.buttons { margin-top: 15px; }
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+}
+
+.yes { background: #ff4081; color: white; }
+.no { background: #ff1744; color: white; position: absolute; }
+
+.tear {
+    position: absolute;
+    width: 8px;
+    height: 12px;
+    background: #00bfff;
+    border-radius: 50%;
+    animation: fall 1s linear forwards;
+}
+
+@keyframes fall {
+    to { transform: translateY(100px); opacity: 0; }
+}
+
+</style>
+</head>
+<body>
+
+<div class="hint" onclick="goNext()">Nhấn vào đây đi 💖</div>
+
+<div class="envelope" id="envelope" onclick="openLetter()"></div>
+
+<div class="letter" id="letter">
+
+    <div class="heart">
+        <img class="img1" src="https://raw.githubusercontent.com/caszzz-std/ANH/main/Messenger_creation_F3FADA3F-4AD4-4936-B26E-43FA5D4DD73F.jpg">
+        <img class="img2" src="https://raw.githubusercontent.com/caszzz-std/ANH/main/Messenger_creation_B84D7BA6-EDA1-4659-91C7-F4FA0C117B53.jpg">
+    </div>
+
+    <div class="text">
+        ANH RẤT YÊU EM 💖<br>
+        LÀM NY ANH NHA 😳
+    </div>
+
+    <div class="buttons">
+        <button class="yes" onclick="agree()">Đồng ý 💖</button>
+        <button class="no" id="noBtn" onclick="runAway(); cry()">Không 😭</button>
+    </div>
+
+</div>
+
+<script>
+function goNext(){
+    document.querySelector('.hint').style.display='none';
+    dropEnvelope();
+}
+
+function dropEnvelope(){
+    let env=document.getElementById("envelope");
+    env.style.display="block";
+    let top=-200;
+    let run=setInterval(()=>{
+        if(top>=200){clearInterval(run)}
+        else{top+=5;env.style.top=top+"px"}
+    },10);
+}
+
+function openLetter(){
+    document.getElementById("letter").classList.add("show");
+}
+
+function agree(){ alert("Đúng Là Em Yêu Của Anh💖💖"); }
+
+function runAway(){
+    let btn=document.getElementById("noBtn");
+    let x=Math.random()*window.innerWidth*0.7;
+    let y=Math.random()*window.innerHeight*0.7;
+    btn.style.left=x+"px";
+    btn.style.top=y+"px";
+}
+
+function cry(){
+    alert("Đừng mà 😭 Chọn lại đi!");
+    for(let i=0;i<5;i++){
+        let tear=document.createElement("div");
+        tear.className="tear";
+        tear.style.left=(window.innerWidth/2 + Math.random()*50 -25)+"px";
+        tear.style.top=(window.innerHeight/2)+"px";
+        document.body.appendChild(tear);
+        setTimeout(()=>tear.remove(),1000);
+    }
+}
+</script>
+
+</body>
+</html>
